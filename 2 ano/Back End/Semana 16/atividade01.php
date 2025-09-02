@@ -12,7 +12,7 @@
     
     $minhaIdade = "17";
 
-    echo "Meu nome é $meuNome $sobrenome e eu tenhop $minhaIdade anos.";
+    echo "Meu nome é $meuNome $sobrenome e eu tenho $minhaIdade anos.";
     ?>
 </body>
 </html>

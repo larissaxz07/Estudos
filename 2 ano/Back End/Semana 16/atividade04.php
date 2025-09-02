@@ -11,11 +11,8 @@
     $sobrenome = "Secretário";
     $cargo = "Secretaria";
 
-    echo "o profissional ". $nome $sobrenome "trabalha no setor Secretaria.
-
-
-
-
+    echo "O profissional ". $nome . " " . $sobrenome . "trabalha no setor
+     " . $cargo
 
 ?>
 
