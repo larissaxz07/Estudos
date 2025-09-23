@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semanas 23/24 - Variáveis e Tipos Primitivos em PHP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4; /* Fundo Neutro Aconchegante */
+        }
+        .nav-item-active {
+            background-color: #60a5fa; /* Destaque Azul Suave */
+            color: white;
+            transform: translateX(4px);
+        }
+        .code-block {
+            background-color: #2d3748; /* Cinza Escuro (Terminal) */
+            color: #f7fafc; /* Texto Claro */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.875rem;
+        }
+        .output-block {
+            background-color: #4a5568; /* Cinza Médio (Saída) */
+            color: #e2e8f0; /* Texto Cinza Claro */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.875rem;
+        }
+        .enunciado-block {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0; /* Borda Cinza Clara */
+            margin-bottom: 1.5rem;
+        }
+        .gabarito-answers-block {
+            background-color: #ebf8ff; /* Fundo Azul Claro */
+            color: #2c5282; /* Texto Azul Escuro */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            border: 1px solid #bee3f8; /* Borda Azul Clara */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
+        <header class="mb-8 pb-4 border-b border-gray-200">
+            <h1 class="text-4xl font-bold text-gray-800">Semanas 23/24: Variáveis e Tipos Primitivos em PHP</h1>
+            <p class="text-lg text-gray-500 mt-2">Os Primeiros Passos no Desenvolvimento Back-End</p>
+        </header>
+
+        <div class="flex flex-col md:flex-row gap-8">
+            <aside class="md:w-1/4">
+                <div class="sticky top-8">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-700">Conteúdo da Aula</h2>
+                    <nav id="section-nav" class="space-y-2">
+                        <!-- Botões de navegação serão inseridos aqui pelo JavaScript -->
+                    </nav>
+                </div>
+            </aside>
+
+            <main id="section-content-area" class="md:w-3/4 bg-white p-6 sm:p-8 rounded-lg shadow-sm min-h-[80vh]">
+                <div id="section-placeholder" class="text-center text-gray-400 flex flex-col justify-center items-center h-full">
+                    <svg class="w-24 h-24 mb-4 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l-4 4m0 0l-4-4m4 4V4M7 7h10M7 12h4m1.5 0h.01M7 17h4m1.5 0h.01" />
+                    </svg>
+                    <p class="text-xl font-medium">Selecione uma seção ao lado para começar.</p>
+                    <p class="mt-2 text-base">Explore o texto didático e as atividades práticas de PHP.</p>
+                </div>
+            </main>
+        </div>
+
+        <footer class="mt-12 text-center text-sm text-gray-400">
+            <p>&copy; <span id="currentYear"></span> Plataforma de Atividades de Back-End. Desenvolvido para fins didáticos.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Objeto contendo todo o conteúdo da aula
+        const conteudoPHP = {
+            textoDidatico: {
+                id: "texto-didatico",
+                title: "Texto Didático",
+                subtitle: "A Memória do Servidor",
+                content: `
+                    <div class="texto-didatico-content">
+                        <p class="mb-4">Olá, turma! Bem-vindos ao universo do Back-End com PHP. Diferente do Front-End, onde o código (como JavaScript) roda no navegador do usuário, o PHP roda no <strong>servidor</strong>. Isso significa que toda a "mágica" acontece em um computador remoto, e o navegador do usuário recebe apenas o resultado final.</p>
+                        <p class="mb-4">Para começar, precisamos entender como guardar informações. Para isso, usamos <strong>variáveis</strong> e <strong>constantes</strong>.</p>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-3">Variáveis: As Gavetas da Memória</h3>
+                        <p>Imagine a memória do servidor como um grande armário. Uma variável é como uma gaveta com uma etiqueta. Você dá um nome (a etiqueta) e guarda algo dentro dela. O conteúdo pode mudar a qualquer momento.</p>
+                        <p class="mt-2">Em PHP, toda variável começa com um cifrão <code>$</code>.</p>
+                        <div class="code-block"><pre><code>&lt;?php
+    $nomeAluno = "Jean Pablo"; // Guardamos um texto
+    $idade = 16;             // Guardamos um número inteiro
+    $nomeAluno = "Alex Junior";  // O valor da variável pode ser alterado
+?&gt;</code></pre></div>
+
+                        <h3 class="text-xl font-semibold mt-6 mb-3">Constantes: Caixas Lacradas</h3>
+                        <p>Uma constante também guarda um valor, mas uma vez definida, ela não pode mais ser alterada. É como uma caixa que você lacra. Em PHP, usamos a palavra-chave <code>const</code> e, por convenção, nomes em maiúsculas.</p>
+                        <div class="code-block"><pre><code>&lt;?php
+    const NOME_ESCOLA = "EEPSAS";
+    echo NOME_ESCOLA; // Exibe "EEPSAS"
+?&gt;</code></pre></div>
+
+                        <h3 class="text-xl font-semibold mt-6 mb-3">Tipos Primitivos de Dados</h3>
+                        <p>O PHP é "fracamente tipado", o que significa que ele adivinha o tipo de dado que você está guardando. Os tipos básicos (escalares) que mais usaremos são:</p>
+                        <ul class="list-disc list-inside space-y-1 my-4">
+                            <li><code>string</code>: Para textos. Sempre entre aspas (<code>"Olá"</code>).</li>
+                            <li><code>int</code>: Para números inteiros (<code>10</code>, <code>-50</code>).</li>
+                            <li><code>float</code>: Para números com casas decimais (<code>1.99</code>, <code>-0.5</code>).</li>
+                            <li><code>bool</code>: Para valores lógicos, verdadeiro (<code>true</code>) ou falso (<code>false</code>).</li>
+                        </ul>
+                        <p>Para descobrir o tipo de uma variável, usamos a função <code>var_dump()</code>, uma ferramenta essencial para o desenvolvedor.</p>
+                        <div class="code-block"><pre><code>&lt;?php
+    $totalAlunos = 19;
+    var_dump($totalAlunos); // Saída: int(19)
+?&gt;</code></pre></div>
+                    </div>
+                `
+            },
+            atividadeGuiada: {
+                id: "atividade-guiada",
+                title: "Atividade Guiada",
+                subtitle: "Recibo de Venda Simples",
+                objetivo: "Criar um script PHP que declara constantes e variáveis de diferentes tipos para calcular e exibir um recibo de venda formatado.",
+                gabarito: `<?php
+    // PASSO 1: Defina as constantes da loja.
+    // Use 'const' para valores que não mudam, como o nome e o CNPJ da loja.
+    const NOME_LOJA = "Loja de Hardware do 3º Ano";
+    const CNPJ_LOJA = "12.345.678/0001-99";
+
+    // PASSO 2: Declare as variáveis para os produtos e o cliente.
+    // Use os tipos de dados corretos para cada informação.
+    $nomeCliente = "Flavia";
+
+    // Produto 1
+    $produto1_nome = "Mouse Gamer RGB";
+    $produto1_preco = 150.75; // float para valor com centavos
+    $produto1_qtd = 1;        // int para quantidade inteira
+
+    // Produto 2
+    $produto2_nome = "Teclado Mecânico";
+    $produto2_preco = 350.50;
+    $produto2_qtd = 2;
+
+    // PASSO 3: Calcule os subtotais e o total geral.
+    // Embora ainda não tenhamos visto operadores a fundo, a lógica é simples.
+    $subtotal1 = $produto1_preco * $produto1_qtd;
+    $subtotal2 = $produto2_preco * $produto2_qtd;
+    $totalGeral = $subtotal1 + $subtotal2;
+
+    // PASSO 4: Exiba o recibo formatado na tela.
+    // Use 'echo' e o caractere de nova linha "\\n" para organizar a saída.
+    echo "=============================================\\n";
+    echo "            " . NOME_LOJA . "            \\n";
+    echo "CNPJ: " . CNPJ_LOJA . "\\n";
+    echo "=============================================\\n";
+    echo "RECIBO PARA: " . $nomeCliente . "\\n";
+    echo "---------------------------------------------\\n";
+    echo "PRODUTO / QTD / PREÇO UN. / SUBTOTAL\\n";
+    echo $produto1_nome . " / " . $produto1_qtd . " / R$ " . $produto1_preco . " / R$ " . $subtotal1 . "\\n";
+    echo $produto2_nome . " / " . $produto2_qtd . " / R$ " . $produto2_preco . " / R$ " . $subtotal2 . "\\n";
+    echo "---------------------------------------------\\n";
+    echo "TOTAL DA COMPRA: R$ " . $totalGeral . "\\n";
+    echo "=============================================\\n";
+
+    // PASSO 5: Use var_dump para inspecionar o valor total.
+    echo "\\n// Análise do tipo de dado do total:\\n";
+    var_dump($totalGeral);
+?>`
+            },
+            atividadesReforco: [
+                {
+                    id: "reforco-1",
+                    title: "Atividade 01: Meu Perfil",
+                    enunciado: ["Crie um script PHP que declare duas variáveis: <code>$meuNome</code> com seu nome completo (string), e <code>$minhaIdade</code> com sua idade (int). Em seguida, exiba a frase 'Meu nome é [SEU NOME] e eu tenho [SUA IDADE] anos.' usando as variáveis."],
+                    saidaEsperada: "Meu nome é Jean Pablo e eu tenho 16 anos."
+                },
+                {
+                    id: "reforco-2",
+                    title: "Atividade 02: Inspetor de Tipos",
+                    enunciado: ["Declare quatro variáveis com os seguintes valores: a string 'PHP', o inteiro '2025', o float '9.5' e o booleano 'true'. Use a função <code>var_dump()</code> para exibir o tipo e o valor de cada uma das quatro variáveis, uma por linha."],
+                    saidaEsperada: `string(3) "PHP"
+int(2025)
+float(9.5)
+bool(true)`
+                },
+                {
+                    id: "reforco-3",
+                    title: "Atividade 03: Calculadora de Média",
+                    enunciado: ["Declare duas variáveis, <code>$nota1</code> e <code>$nota2</code>, com valores do tipo float (ex: 7.5 e 8.0). Crie uma terceira variável, <code>$media</code>, que armazene a média aritmética das duas notas. Exiba o resultado no formato 'A média final é: [VALOR DA MÉDIA]'."],
+                    saidaEsperada: "A média final é: 7.75"
+                },
+                 {
+                    id: "reforco-4",
+                    title: "Atividade 04: Cartão de Visitas",
+                    enunciado: ["Declare as variáveis <code>$nome = 'Rafael'</code>, <code>$sobrenome = 'Secretário'</code>, e <code>$cargo = 'Secretaria'</code>. Usando concatenação (o ponto <code>.</code>), junte essas variáveis para exibir a frase 'O profissional Rafael Secretário trabalha no setor Secretaria.'."],
+                    saidaEsperada: "O profissional Rafael Secretário trabalha no setor Secretaria."
+                }
+            ],
+            entrega: {
+                id: "entrega",
+                title: "Entrega: Relatório de Produto",
+                objetivo: "Integrar o uso de variáveis e constantes de diferentes tipos para gerar um relatório de produto formatado.",
+                enunciado: [
+                    "Você foi contratado para criar um sistema de inventário. Sua primeira tarefa é criar um script PHP que gere um relatório para um único produto.",
+                    "1. Defina uma constante chamada <code>NOME_EMPRESA</code> com o valor 'InfoTech 3º Ano'.",
+                    "2. Declare as seguintes variáveis para um produto:",
+                    "   - <code>$nomeProduto</code> (string): 'Processador i9'",
+                    "   - <code>$quantidadeEstoque</code> (int): 15",
+                    "   - <code>$precoUnitario</code> (float): 2750.99",
+                    "   - <code>$emPromocao</code> (bool): false",
+                    "3. Exiba um relatório formatado que mostre o nome da empresa, e depois os detalhes do produto, cada um em uma linha.",
+                    "4. No final, use <code>var_dump()</code> para inspecionar a variável <code>$emPromocao</code>."
+                ],
+                saidaEsperada: `*** Relatório de Inventário da InfoTech 3º Ano ***
+
+Produto: Processador i9
+Quantidade em Estoque: 15 unidades
+Preço por Unidade: R$ 2750.99
+
+--- Status da Promoção ---
+bool(false)`,
+            },
+            desafio: {
+                id: "desafio",
+                title: "Desafio: Tabela de Conversão",
+                objetivo: "Aplicar os conhecimentos de variáveis, constantes e concatenação para criar uma tabela formatada de conversão de moedas.",
+                enunciado: [
+                    "Crie um script PHP que exiba uma pequena tabela de conversão de Dólar para Real. Defina uma constante com o valor <code>5.45</code>. Declare três variáveis com valores em dólar, calcule o valor correspondente em reais para cada uma e exiba uma tabela formatada mostrando os valores respectivos"
+                ],
+                saidaEsperada: `+-------------------------------------+
+|   TABELA DE CONVERSÃO DE MOEDAS   |
+| Cotação do Dólar: R$ 5.45         |
++-------------------------------------+
+| Dólar (US$)   | Real (R$)         |
++---------------+---------------------+
+| US$ 10.00     | R$ 54.50          |
+| US$ 50.00     | R$ 272.50         |
+| US$ 100.00    | R$ 545.00         |
++-------------------------------------+`
+            }
+        };
+
+        // Lógica para renderizar o conteúdo dinamicamente
+        const navContainer = document.getElementById('section-nav');
+        const contentArea = document.getElementById('section-content-area');
+        const placeholder = document.getElementById('section-placeholder');
+        let currentActiveButton = null;
+
+        function displaySection(sectionId) {
+            let sectionData;
+            
+            const navMap = {
+                "texto-didatico": { data: conteudoPHP.textoDidatico, type: 'textoDidatico' },
+                "atividade-guiada": { data: conteudoPHP.atividadeGuiada, type: 'atividade' },
+                "reforco-1": { data: conteudoPHP.atividadesReforco[0], type: 'atividade' },
+                "reforco-2": { data: conteudoPHP.atividadesReforco[1], type: 'atividade' },
+                "reforco-3": { data: conteudoPHP.atividadesReforco[2], type: 'atividade' },
+                "reforco-4": { data: conteudoPHP.atividadesReforco[3], type: 'atividade' },
+                "entrega": { data: conteudoPHP.entrega, type: 'atividade' },
+                "desafio": { data: conteudoPHP.desafio, type: 'atividade' }
+            };
+
+            const selected = navMap[sectionId];
+            if (!selected) {
+                contentArea.innerHTML = '<p class="text-red-500">Conteúdo não encontrado.</p>';
+                return;
+            }
+            sectionData = selected.data;
+
+            if(placeholder) placeholder.style.display = 'none';
+            contentArea.innerHTML = ''; 
+
+            const article = document.createElement('article');
+            article.id = `section-${sectionData.id}`;
+            
+            const titleText = sectionData.subtitle ? `${sectionData.title}: ${sectionData.subtitle}` : sectionData.title;
+            const titleH2 = document.createElement('h2');
+            titleH2.className = "text-3xl font-bold text-gray-800 mb-6 pb-3 border-b border-gray-200";
+            titleH2.textContent = titleText;
+            article.appendChild(titleH2);
+            
+            if (selected.type === 'textoDidatico') {
+                const divContent = document.createElement('div');
+                divContent.innerHTML = sectionData.content;
+                article.appendChild(divContent);
+            } else {
+                 if (sectionData.objetivo) {
+                    const objP = document.createElement('p');
+                    objP.className = "text-gray-500 italic mb-6 text-base";
+                    objP.innerHTML = `<strong>Objetivo:</strong> ${sectionData.objetivo}`;
+                    article.appendChild(objP);
+                }
+
+                if(sectionData.enunciado){
+                    const enunciadoDiv = document.createElement('div');
+                    enunciadoDiv.className = "enunciado-block";
+                    const enunciadoTitle = document.createElement('h3');
+                    enunciadoTitle.className = "text-xl font-semibold text-gray-800 mb-3";
+                    enunciadoTitle.textContent = "Enunciado";
+                    enunciadoDiv.appendChild(enunciadoTitle);
+                    sectionData.enunciado.forEach(line => {
+                        const p = document.createElement('p');
+                        p.className = "text-gray-700 mb-2";
+                        p.innerHTML = line.replace(/`([^`]+)`/g, '<code class="bg-gray-200 text-sm text-pink-600 px-1 rounded">$1</code>');
+                        enunciadoDiv.appendChild(p);
+                    });
+                    article.appendChild(enunciadoDiv);
+                }
+                
+                if (sectionData.saidaEsperada) {
+                    const saidaTitle = document.createElement('h3');
+                    saidaTitle.className = "text-xl font-semibold text-gray-800 mb-2 mt-6";
+                    saidaTitle.textContent = "Saída Esperada (Exemplo):";
+                    article.appendChild(saidaTitle);
+                    const outputBlockDiv = document.createElement('div');
+                    outputBlockDiv.className = "output-block";
+                    outputBlockDiv.innerHTML = `<pre><code>${sectionData.saidaEsperada.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`;
+                    article.appendChild(outputBlockDiv);
+                }
+
+                if (sectionData.gabarito) {
+                    const gabaritoContainer = document.createElement('div');
+                    gabaritoContainer.className = "mt-8";
+                    const toggleButton = document.createElement('button');
+                    toggleButton.className = "bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-150 ease-in-out mb-2 shadow";
+                    toggleButton.textContent = "Mostrar Gabarito do Código";
+                    const gabaritoContent = document.createElement('div');
+                    gabaritoContent.id = `gabarito-content-${sectionData.id}`;
+                    gabaritoContent.classList.add('hidden', 'code-block');
+                    gabaritoContent.innerHTML = `<pre><code>${sectionData.gabarito.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`;
+                    
+                    gabaritoContainer.appendChild(toggleButton);
+                    gabaritoContainer.appendChild(gabaritoContent);
+                    article.appendChild(gabaritoContainer);
+
+                    toggleButton.addEventListener('click', () => {
+                        const isHidden = gabaritoContent.classList.toggle('hidden');
+                        toggleButton.textContent = isHidden ? "Mostrar Gabarito do Código" : "Esconder Gabarito";
+                    });
+                }
+            }
+            contentArea.appendChild(article);
+        }
+
+        function setActiveButton(button) {
+            if (currentActiveButton) {
+                currentActiveButton.classList.remove('nav-item-active');
+            }
+            button.classList.add('nav-item-active');
+            currentActiveButton = button;
+        }
+        
+        const navSections = [
+            conteudoPHP.textoDidatico,
+            conteudoPHP.atividadeGuiada,
+            ...conteudoPHP.atividadesReforco,
+            conteudoPHP.entrega,
+            conteudoPHP.desafio
+        ];
+
+        navSections.forEach((section) => {
+            const button = document.createElement('button');
+            button.textContent = section.title;
+            button.classList.add(
+                'w-full', 'text-left', 'px-4', 'py-3', 'rounded-lg', 
+                'transition-all', 'duration-200', 'ease-in-out', 
+                'font-medium', 'text-gray-600', 'hover:bg-blue-100', 'hover:text-blue-600'
+            );
+            button.addEventListener('click', () => {
+                displaySection(section.id);
+                setActiveButton(button);
+            });
+            navContainer.appendChild(button);
+        });
+        
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

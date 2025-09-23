@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 25 - Cálculos Aritméticos em PHP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4; /* Fundo Neutro Aconchegante */
+        }
+        .nav-item-active {
+            background-color: #60a5fa; /* Destaque Azul Suave */
+            color: white;
+            transform: translateX(4px);
+        }
+        .code-block {
+            background-color: #2d3748; /* Cinza Escuro (Terminal) */
+            color: #f7fafc; /* Texto Claro */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.875rem;
+        }
+        .output-block {
+            background-color: #4a5568; /* Cinza Médio (Saída) */
+            color: #e2e8f0; /* Texto Cinza Claro */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.875rem;
+        }
+        .enunciado-block {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0; /* Borda Cinza Clara */
+            margin-bottom: 1.5rem;
+        }
+        .gabarito-answers-block {
+            background-color: #ebf8ff; /* Fundo Azul Claro */
+            color: #2c5282; /* Texto Azul Escuro */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            border: 1px solid #bee3f8; /* Borda Azul Clara */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
+        <header class="mb-8 pb-4 border-b border-gray-200">
+            <h1 class="text-4xl font-bold text-gray-800">Semana 25: Cálculos Aritméticos em PHP</h1>
+            <p class="text-lg text-gray-500 mt-2">Fazendo o PHP Trabalhar com Números</p>
+        </header>
+
+        <div class="flex flex-col md:flex-row gap-8">
+            <aside class="md:w-1/4">
+                <div class="sticky top-8">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-700">Conteúdo da Aula</h2>
+                    <nav id="section-nav" class="space-y-2">
+                        <!-- Botões de navegação serão inseridos aqui pelo JavaScript -->
+                    </nav>
+                </div>
+            </aside>
+
+            <main id="section-content-area" class="md:w-3/4 bg-white p-6 sm:p-8 rounded-lg shadow-sm min-h-[80vh]">
+                <div id="section-placeholder" class="text-center text-gray-400 flex flex-col justify-center items-center h-full">
+                    <svg class="w-24 h-24 mb-4 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l-4 4m0 0l-4-4m4 4V4M7 7h10M7 12h4m1.5 0h.01M7 17h4m1.5 0h.01" />
+                    </svg>
+                    <p class="text-xl font-medium">Selecione uma seção ao lado para começar.</p>
+                    <p class="mt-2 text-base">Explore o texto didático e as atividades práticas de PHP.</p>
+                </div>
+            </main>
+        </div>
+
+        <footer class="mt-12 text-center text-sm text-gray-400">
+            <p>&copy; <span id="currentYear"></span> Plataforma de Atividades de Back-End. Desenvolvido para fins didáticos.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Objeto contendo todo o conteúdo da aula
+        const conteudoPHP = {
+            textoDidatico: {
+                id: "texto-didatico",
+                title: "Texto Didático",
+                subtitle: "A Matemática do PHP",
+                content: `
+                    <div class="texto-didatico-content">
+                        <p class="mb-4">Olá, turma! Na última aula, aprendemos a armazenar dados. Agora, vamos dar um passo adiante e aprender a <strong>manipular dados numéricos</strong>. O PHP, como toda linguagem de programação, é uma poderosa calculadora, capaz de realizar desde operações simples até cálculos complexos.</p>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-3">Operadores Aritméticos: As Ferramentas Básicas</h3>
+                        <p>Os operadores aritméticos são os símbolos que usamos para realizar as quatro operações fundamentais e algumas outras. Os principais são:</p>
+                        <ul class="list-disc list-inside space-y-1 my-4">
+                            <li><code>+</code> (Adição)</li>
+                            <li><code>-</code> (Subtração)</li>
+                            <li><code>*</code> (Multiplicação)</li>
+                            <li><code>/</code> (Divisão)</li>
+                            <li><code>%</code> (Módulo - Retorna o resto de uma divisão inteira)</li>
+                            <li><code>**</code> (Exponenciação - Eleva um número a uma potência)</li>
+                        </ul>
+                        <div class="code-block"><pre><code>&lt;?php
+    $soma = 5 + 2; // 7
+    $produto = 5 * 2; // 10
+    $resto = 5 % 2; // 1
+    $potencia = 5 ** 2; // 25
+?&gt;</code></pre></div>
+
+                        <h3 class="text-xl font-semibold mt-6 mb-3">Ordem de Precedência: A Hierarquia das Operações</h3>
+                        <p>Quando temos uma expressão com vários operadores, o PHP não resolve da esquerda para a direita. Ele segue uma ordem de prioridade, exatamente como na matemática:</p>
+                        <ol class="list-decimal list-inside space-y-1 my-4">
+                            <li><strong>1º: <code>()</code></strong> - Tudo que está dentro de parênteses.</li>
+                            <li><strong>2º: <code>**</code></strong> - Potências.</li>
+                            <li><strong>3º: <code>*</code>, <code>/</code>, <code>%</code></strong> - Multiplicação, Divisão e Módulo.</li>
+                            <li><strong>4º: <code>+</code>, <code>-</code></strong> - Adição e Subtração.</li>
+                        </ol>
+                         <div class="code-block"><pre><code>&lt;?php
+    $resultado = 50 / 2 + 3**2; // Primeiro 3**2 = 9, depois 50/2 = 25, por fim 25+9 = 34
+    echo $resultado; // Saída: 34
+?&gt;</code></pre></div>
+
+                        <h3 class="text-xl font-semibold mt-6 mb-3">Funções Matemáticas: Indo Além do Básico</h3>
+                        <p>Para cálculos mais avançados, o PHP oferece uma biblioteca de funções matemáticas prontas para usar. Algumas das mais úteis são:</p>
+                        <ul class="list-disc list-inside space-y-1 my-4">
+                            <li><code>abs()</code>: Retorna o valor absoluto (sem sinal negativo).</li>
+                            <li><code>pow()</code>: Outra forma de calcular potência (alternativa ao <code>**</code>).</li>
+                            <li><code>sqrt()</code>: Calcula a raiz quadrada.</li>
+                            <li><code>round()</code>: Arredonda um número para o inteiro mais próximo.</li>
+                            <li><code>ceil()</code> e <code>floor()</code>: Arredondam para cima e para baixo, respectivamente.</li>
+                            <li><code>pi()</code>: Retorna o valor de PI.</li>
+                            <li><code>min()</code> e <code>max()</code>: Encontram o menor e o maior valor em uma lista de números.</li>
+                        </ul>
+                        <div class="code-block"><pre><code>&lt;?php
+    $raiz = sqrt(81); // 9
+    $arredondado = round(2.7); // 3
+    $maior_numero = max(5, 9, 2, 15); // 15
+?&gt;</code></pre></div>
+                    </div>
+                `
+            },
+            atividadeGuiada: {
+                id: "atividade-guiada",
+                title: "Atividade Guiada",
+                subtitle: "Calculadora de Média Ponderada",
+                objetivo: "Aplicar a ordem de precedência e o uso de parênteses para calcular a média ponderada de um aluno.",
+                gabarito: `&lt;?php
+    /*
+     * Atividade Guiada: Calculadora de Média Ponderada
+     * O objetivo é calcular a média final de um aluno com base em 3 notas
+     * com pesos diferentes, seguindo a regra da ordem de precedência.
+    */
+
+    // PASSO 1: Declare as constantes para os pesos de cada avaliação.
+    // Usar constantes é uma boa prática para valores que não mudam.
+    const PESO_PROVA_1 = 2;
+    const PESO_PROVA_2 = 3;
+    const PESO_TRABALHO = 5;
+
+    // PASSO 2: Declare as variáveis para as notas do aluno.
+    $notaProva1 = 7.5;
+    $notaProva2 = 6.0;
+    $notaTrabalho = 8.5;
+
+    // PASSO 3: Calcule a parte de cima da fórmula da média ponderada.
+    // (nota1 * peso1) + (nota2 * peso2) + (nota3 * peso3)
+    // Usamos parênteses para garantir que as multiplicações ocorram antes das somas.
+    $somaPonderada = ($notaProva1 * PESO_PROVA_1) + ($notaProva2 * PESO_PROVA_2) + ($notaTrabalho * PESO_TRABALHO);
+
+    // PASSO 4: Calcule a soma dos pesos.
+    $somaPesos = PESO_PROVA_1 + PESO_PROVA_2 + PESO_TRABALHO;
+
+    // PASSO 5: Calcule a média final dividindo a soma ponderada pela soma dos pesos.
+    $mediaFinal = $somaPonderada / $somaPesos;
+
+    // PASSO 6: Exiba os resultados de forma organizada.
+    echo "--- Boletim do Aluno ---\\n";
+    echo "Nota Prova 1 (Peso " . PESO_PROVA_1 . "): $notaProva1 \\n";
+    echo "Nota Prova 2 (Peso " . PESO_PROVA_2 . "): $notaProva2 \\n";
+    echo "Nota Trabalho (Peso " . PESO_PROVA_2 . "): $notaTrabalho \\n";
+    echo "--------------------------\\n";
+    // A função round() é usada aqui para formatar a média com 2 casas decimais.
+    echo "Média Final Ponderada: " . round($mediaFinal, 2) . "\\n";
+?&gt;`
+            },
+            atividadesReforco: [
+                {
+                    id: "reforco-1",
+                    title: "Fixação 1: Calculadora de Desconto",
+                    objetivo: "Praticar o uso de operadores aritméticos (`*`, `-`) para um cálculo simples de porcentagem.",
+                    enunciado: ["Crie um script que declare uma variável <code>$precoProduto</code> com o valor <code>150.00</code> e uma variável <code>$percentualDesconto</code> com o valor <code>10</code>. Calcule o valor do desconto e, em seguida, o preço final do produto. Exiba o preço original, o valor do desconto e o preço final."],
+                    saidaEsperada: `Preço Original: R$ 150.00
+Desconto de 10%: R$ 15.00
+Preço Final: R$ 135.00`
+                },
+                {
+                    id: "reforco-2",
+                    title: "Fixação 2: Área do Trapézio",
+                    objetivo: "Reforçar a importância da ordem de precedência e o uso de parênteses para resolver uma fórmula matemática.",
+                    enunciado: ["A fórmula para calcular a área de um trapézio é <code>((baseMaior + baseMenor) * altura) / 2</code>. Crie um script que declare as variáveis <code>$baseMaior = 10</code>, <code>$baseMenor = 6</code> e <code>$altura = 4</code>. Calcule e exiba a área do trapézio."],
+                    saidaEsperada: `A área do trapézio é: 32`
+                },
+                {
+                    id: "reforco-3",
+                    title: "Fixação 3: Distância Entre Pontos",
+                    objetivo: "Aplicar uma função matemática nativa do PHP (`abs()`) para resolver um problema.",
+                    enunciado: ["Crie um script que declare duas variáveis, <code>$pontoA = -8</code> e <code>$pontoB = 12</code>. Calcule a distância absoluta entre os dois pontos (a diferença entre eles, sem sinal negativo). Exiba o resultado."],
+                    saidaEsperada: `A distância entre os pontos é: 20`
+                }
+            ],
+            entrega: {
+                id: "entrega",
+                title: "Entrega: Calculadora de Tinta",
+                objetivo: "Integrar a captura de dados de um formulário com a execução de cálculos aritméticos no back-end.",
+                enunciado: [
+                    "Crie um único arquivo PHP que funcione como front-end e back-end.",
+                    "1. No mesmo arquivo, crie um formulário HTML que peça ao usuário a <strong>largura</strong> e a <strong>altura</strong> de uma parede em metros.",
+                    "2. Quando o formulário for enviado, o script PHP (no mesmo arquivo) deve receber esses dois valores.",
+                    "3. Calcule a área da parede (<code>largura * altura</code>).",
+                    "4. Sabendo que 1 litro de tinta pinta 2 metros quadrados de parede, calcule a quantidade de litros de tinta necessários.",
+                    "5. Exiba um relatório completo com as medidas da parede, a área total e a quantidade de tinta necessária."
+                ],
+                saidaEsperada: `(Tela inicial com o formulário)
+
+(Após preencher 3 para largura e 2.5 para altura)
+
+--- Relatório de Pintura ---
+Para uma parede de 3m de largura e 2.5m de altura:
+Área total: 7.5 m²
+Serão necessários 3.75 litros de tinta.`
+            },
+            desafio: {
+                id: "desafio",
+                title: "Desafio: Calculadora de Teorema de Pitágoras",
+                objetivo: "Utilizar funções matemáticas e operadores para criar uma calculadora que encontra a hipotenusa de um triângulo retângulo.",
+                enunciado: [
+                    "Crie um script PHP que declare duas variáveis, <code>$catetoA</code> e <code>$catetoB</code>, com valores numéricos. Usando o Teorema de Pitágoras (a² + b² = c²), calcule o valor da hipotenusa (c).",
+                    "Dica: A hipotenusa é a raiz quadrada da soma dos quadrados dos catetos. Você precisará de uma função para potência e outra para raiz quadrada. Exiba o resultado de forma clara."
+                ],
+                saidaEsperada: `--- Calculadora de Pitágoras ---
+Cateto A: 3
+Cateto B: 4
+-----------------------------
+A hipotenusa é: 5`
+            }
+        };
+
+        // Lógica para renderizar o conteúdo dinamicamente
+        const navContainer = document.getElementById('section-nav');
+        const contentArea = document.getElementById('section-content-area');
+        const placeholder = document.getElementById('section-placeholder');
+        let currentActiveButton = null;
+
+        function displaySection(sectionId) {
+            let sectionData;
+            
+            const navMap = {
+                "texto-didatico": { data: conteudoPHP.textoDidatico, type: 'textoDidatico' },
+                "atividade-guiada": { data: conteudoPHP.atividadeGuiada, type: 'atividade' },
+                "reforco-1": { data: conteudoPHP.atividadesReforco[0], type: 'atividade' },
+                "reforco-2": { data: conteudoPHP.atividadesReforco[1], type: 'atividade' },
+                "reforco-3": { data: conteudoPHP.atividadesReforco[2], type: 'atividade' },
+                "entrega": { data: conteudoPHP.entrega, type: 'entrega' },
+                "desafio": { data: conteudoPHP.desafio, type: 'atividade' }
+            };
+
+            const selected = navMap[sectionId];
+            if (!selected) {
+                contentArea.innerHTML = '<p class="text-red-500">Conteúdo não encontrado.</p>';
+                return;
+            }
+            sectionData = selected.data;
+
+            if(placeholder) placeholder.style.display = 'none';
+            contentArea.innerHTML = ''; 
+
+            const article = document.createElement('article');
+            article.id = `section-${sectionData.id}`;
+            
+            const titleText = sectionData.subtitle ? `${sectionData.title}: ${sectionData.subtitle}` : sectionData.title;
+            const titleH2 = document.createElement('h2');
+            titleH2.className = "text-3xl font-bold text-gray-800 mb-6 pb-3 border-b border-gray-200";
+            titleH2.textContent = titleText;
+            article.appendChild(titleH2);
+            
+            if (selected.type === 'textoDidatico') {
+                const divContent = document.createElement('div');
+                divContent.innerHTML = sectionData.content;
+                article.appendChild(divContent);
+            } else {
+                 if (sectionData.objetivo) {
+                    const objP = document.createElement('p');
+                    objP.className = "text-gray-500 italic mb-6 text-base";
+                    objP.innerHTML = `<strong>Objetivo:</strong> ${sectionData.objetivo}`;
+                    article.appendChild(objP);
+                }
+
+                if(sectionData.enunciado){
+                    const enunciadoDiv = document.createElement('div');
+                    enunciadoDiv.className = "enunciado-block";
+                    const enunciadoTitle = document.createElement('h3');
+                    enunciadoTitle.className = "text-xl font-semibold text-gray-800 mb-3";
+                    enunciadoTitle.textContent = "Enunciado";
+                    enunciadoDiv.appendChild(enunciadoTitle);
+                    sectionData.enunciado.forEach(line => {
+                        const p = document.createElement('p');
+                        p.className = "text-gray-700 mb-2";
+                        p.innerHTML = line.replace(/`([^`]+)`/g, '<code class="bg-gray-200 text-sm text-pink-600 px-1 rounded">$1</code>');
+                        enunciadoDiv.appendChild(p);
+                    });
+                    article.appendChild(enunciadoDiv);
+                }
+                
+                if (sectionData.saidaEsperada) {
+                    const saidaTitle = document.createElement('h3');
+                    saidaTitle.className = "text-xl font-semibold text-gray-800 mb-2 mt-6";
+                    saidaTitle.textContent = selected.type === 'entrega' ? "Exemplo de Resposta:" : "Saída Esperada (Exemplo):";
+                    article.appendChild(saidaTitle);
+                    const outputBlockDiv = document.createElement('div');
+                    outputBlockDiv.className = selected.type === 'entrega' ? "gabarito-answers-block" : "output-block";
+                    outputBlockDiv.innerHTML = `<pre class="whitespace-pre-wrap"><code>${sectionData.saidaEsperada.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`;
+                    article.appendChild(outputBlockDiv);
+                }
+
+                if (sectionData.gabarito) {
+                    const gabaritoContainer = document.createElement('div');
+                    gabaritoContainer.className = "mt-8";
+                    const toggleButton = document.createElement('button');
+                    toggleButton.className = "bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-150 ease-in-out mb-2 shadow";
+                    toggleButton.textContent = "Mostrar Gabarito do Código";
+                    const gabaritoContent = document.createElement('div');
+                    gabaritoContent.id = `gabarito-content-${sectionData.id}`;
+                    gabaritoContent.classList.add('hidden', 'code-block');
+                    gabaritoContent.innerHTML = `<pre><code>${sectionData.gabarito.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`;
+                    
+                    gabaritoContainer.appendChild(toggleButton);
+                    gabaritoContainer.appendChild(gabaritoContent);
+                    article.appendChild(gabaritoContainer);
+
+                    toggleButton.addEventListener('click', () => {
+                        const isHidden = gabaritoContent.classList.toggle('hidden');
+                        toggleButton.textContent = isHidden ? "Mostrar Gabarito do Código" : "Esconder Gabarito";
+                    });
+                }
+            }
+            contentArea.appendChild(article);
+        }
+
+        function setActiveButton(button) {
+            if (currentActiveButton) {
+                currentActiveButton.classList.remove('nav-item-active');
+            }
+            button.classList.add('nav-item-active');
+            currentActiveButton = button;
+        }
+        
+        const navSections = [
+            conteudoPHP.textoDidatico,
+            conteudoPHP.atividadeGuiada,
+            ...conteudoPHP.atividadesReforco.map(item => item),
+            conteudoPHP.entrega,
+            conteudoPHP.desafio
+        ];
+
+        navSections.forEach((section) => {
+            const button = document.createElement('button');
+            button.textContent = section.title;
+            button.classList.add(
+                'w-full', 'text-left', 'px-4', 'py-3', 'rounded-lg', 
+                'transition-all', 'duration-200', 'ease-in-out', 
+                'font-medium', 'text-gray-600', 'hover:bg-blue-100', 'hover:text-blue-600'
+            );
+            button.addEventListener('click', () => {
+                displaySection(section.id);
+                setActiveButton(button);
+            });
+            navContainer.appendChild(button);
+        });
+        
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 27 - Formulários e Captura de Dados com PHP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4; /* Fundo Neutro Aconchegante */
+        }
+        .nav-item-active {
+            background-color: #60a5fa; /* Destaque Azul Suave */
+            color: white;
+            transform: translateX(4px);
+        }
+        .code-block {
+            background-color: #2d3748; /* Cinza Escuro (Terminal) */
+            color: #f7fafc; /* Texto Claro */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.875rem;
+        }
+        .output-block {
+            background-color: #4a5568; /* Cinza Médio (Saída) */
+            color: #e2e8f0; /* Texto Cinza Claro */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.875rem;
+        }
+        .enunciado-block {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0; /* Borda Cinza Clara */
+            margin-bottom: 1.5rem;
+        }
+        .gabarito-answers-block {
+            background-color: #ebf8ff; /* Fundo Azul Claro */
+            color: #2c5282; /* Texto Azul Escuro */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            border: 1px solid #bee3f8; /* Borda Azul Clara */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
+        <header class="mb-8 pb-4 border-b border-gray-200">
+            <h1 class="text-4xl font-bold text-gray-800">Semana 27: Formulários e Captura de Dados com PHP</h1>
+            <p class="text-lg text-gray-500 mt-2">Recebendo Informações do Usuário no Back-End</p>
+        </header>
+
+        <div class="flex flex-col md:flex-row gap-8">
+            <aside class="md:w-1/4">
+                <div class="sticky top-8">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-700">Conteúdo da Aula</h2>
+                    <nav id="section-nav" class="space-y-2">
+                        <!-- Botões de navegação serão inseridos aqui pelo JavaScript -->
+                    </nav>
+                </div>
+            </aside>
+
+            <main id="section-content-area" class="md:w-3/4 bg-white p-6 sm:p-8 rounded-lg shadow-sm min-h-[80vh]">
+                <div id="section-placeholder" class="text-center text-gray-400 flex flex-col justify-center items-center h-full">
+                    <svg class="w-24 h-24 mb-4 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l-4 4m0 0l-4-4m4 4V4M7 7h10M7 12h4m1.5 0h.01M7 17h4m1.5 0h.01" />
+                    </svg>
+                    <p class="text-xl font-medium">Selecione uma seção ao lado para começar.</p>
+                    <p class="mt-2 text-base">Explore o texto didático e as atividades práticas de PHP.</p>
+                </div>
+            </main>
+        </div>
+
+        <footer class="mt-12 text-center text-sm text-gray-400">
+            <p>&copy; <span id="currentYear"></span> Plataforma de Atividades de Back-End. Desenvolvido para fins didáticos.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Objeto contendo todo o conteúdo da aula
+        const conteudoPHP = {
+            textoDidatico: {
+                id: "texto-didatico",
+                title: "Texto Didático",
+                subtitle: "A Conversa entre Front-End e Back-End",
+                content: `
+                    <div class="texto-didatico-content">
+                        <p class="mb-4">Olá, turma! Até agora, todos os dados que usamos em nossos scripts PHP foram definidos por nós, os programadores. Mas como um sistema real funciona? Ele recebe dados do <strong>usuário</strong>. A principal forma de fazer isso na web é através de <strong>formulários HTML</strong>.</p>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-3">O Formulário HTML: A Porta de Entrada</h3>
+                        <p>No Front-End, a tag <code>&lt;form&gt;</code> é usada para criar áreas de entrada de dados. Os dois atributos mais importantes dela são:</p>
+                        <ul class="list-disc list-inside space-y-1 my-4">
+                            <li><code>action</code>: Indica para qual arquivo PHP os dados serão enviados.</li>
+                            <li><code>method</code>: Define o "método de envio". Os dois principais são <strong>GET</strong> e <strong>POST</strong>.</li>
+                        </ul>
+
+                        <h3 class="text-xl font-semibold mt-6 mb-3">GET vs POST: O Carteiro e o Pacote Lacrado</h3>
+                        <p>Imagine que você quer enviar uma informação.</p>
+                        <ul class="list-disc list-inside space-y-1 my-4">
+                            <li><strong>Método GET:</strong> É como enviar um <strong>cartão postal</strong>. A informação (ex: <code>?nome=Jean&idade=16</code>) é visível para todos, pois vai diretamente na URL (no endereço do site). É ideal para buscas ou filtros, mas nunca para senhas ou dados sensíveis.</li>
+                            <li><strong>Método POST:</strong> É como enviar um <strong>pacote lacrado</strong>. Os dados são enviados no "corpo" da requisição, de forma invisível para o usuário. É o método padrão para logins, cadastros e qualquer envio de dados sensíveis.</li>
+                        </ul>
+
+                        <h3 class="text-xl font-semibold mt-6 mb-3">PHP: Recebendo os Dados</h3>
+                        <p>No Back-End, o PHP possui "caixas de correio" especiais para receber esses dados. São as variáveis superglobais:</p>
+                        <ul class="list-disc list-inside space-y-1 my-4">
+                            <li><code>$_GET</code>: Um array que contém todos os dados enviados via método GET.</li>
+                            <li><code>$_POST</code>: Um array que contém todos os dados enviados via método POST.</li>
+                            <li><code>$_REQUEST</code>: Um array que contém os dados de GET, POST e Cookies.</li>
+                        </ul>
+                        <p>Para acessar um dado, usamos o nome que foi definido no atributo <code>name</code> do campo do formulário.</p>
+                        <div class="code-block"><pre><code>&lt;!-- Arquivo index.html --&gt;
+&lt;form action="processa.php" method="post"&gt;
+    &lt;input type="text" name="nome_usuario"&gt;
+    &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;?php
+    // Arquivo processa.php
+    $nome = $_POST['nome_usuario'];
+    echo "Olá, $nome!";
+?&gt;</code></pre></div>
+                        <p class="mt-4">É possível também ter o formulário e o código PHP na mesma página. Para isso, o <code>action</code> do formulário pode apontar para a própria página, e usamos uma verificação para saber se o formulário já foi enviado antes de tentar processar os dados.</p>
+                    </div>
+                `
+            },
+            atividadeGuiada: {
+                id: "atividade-guiada",
+                title: "Atividade Guiada",
+                subtitle: "Formulário de Saudação",
+                objetivo: "Criar um formulário HTML simples e um script PHP em um arquivo separado para receber e exibir um nome enviado pelo usuário.",
+                gabarito: `<!-- PASSO 1: Crie o arquivo do formulário (ex: index.html) -->
+<!-- Este arquivo contém a interface para o usuário digitar o nome. -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário de Saudação</title>
+</head>
+<body>
+    <h1>Qual é o seu nome?</h1>
+    <!-- O 'action' aponta para o script PHP que vai processar os dados -->
+    <!-- O 'method' POST é mais seguro para envio de dados -->
+    <form action="saudacao.php" method="post">
+        <label for="nome">Nome:</label>
+        <!-- O atributo 'name' é crucial. É como o PHP vai identificar este dado. -->
+        <input type="text" id="nome" name="campo_nome">
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
+
+
+<!-- PASSO 2: Crie o arquivo de processamento (ex: saudacao.php) -->
+<!-- Este script recebe o dado e exibe a mensagem. -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Bem-vindo!</title>
+</head>
+<body>
+    <h1>Sua Saudação Personalizada</h1>
+    <p>
+        <?php
+            // PASSO 3: Capturar o dado enviado via POST.
+            // A chave ['campo_nome'] deve ser a mesma do atributo 'name' no HTML.
+            $nomeRecebido = $_POST['campo_nome'];
+
+            // PASSO 4: Exibir a mensagem para o usuário.
+            echo "Olá, " . $nomeRecebido . "! Seja muito bem-vindo(a) ao mundo do Back-End!";
+        ?>
+    </p>
+</body>
+</html>`
+            },
+            entrega: {
+                id: "entrega",
+                title: "Entrega: Roteiro para Shorts",
+                objetivo: "Exercitar a capacidade de síntese e comunicação criando premissas para vídeos curtos (Shorts) sobre os conceitos de formulários em PHP.",
+                enunciado: [
+                    "Sua tarefa desta semana é novamente atuar como um criador de conteúdo! Crie 3 ideias (premissas) para um vídeo curto (60 segundos) no estilo 'Shorts' ou 'Reels' sobre como o PHP trabalha com formulários.",
+                    "Para cada ideia, descreva brevemente:",
+                    "1. <strong>O Gancho (Hook):</strong> A frase ou cena inicial para prender a atenção em 3 segundos.",
+                    "2. <strong>O Conceito:</strong> Qual conceito (GET vs POST, superglobais, etc.) você vai explicar.",
+                    "3. <strong>A Analogia/Exemplo:</strong> Como você vai explicar de forma simples e visual.",
+                    "Seja criativo! O objetivo é pensar em como ensinar esses conceitos de forma rápida e divertida."
+                ],
+                saidaEsperada: `Exemplo de como formatar sua resposta:
+
+**Ideia 1: GET vs POST**
+* **Gancho:** "Você mandaria sua senha num CARTÃO POSTAL?"
+* **Conceito:** Explicar a diferença de segurança e visibilidade entre GET e POST.
+* **Analogia:** Mostrar lado a lado um cartão postal (GET), com o texto visível para todos, e uma carta lacrada (POST), onde o conteúdo está protegido.
+
+(Crie suas outras duas ideias seguindo este formato)`
+            },
+            desafio: {
+                id: "desafio",
+                title: "Desafio: Calculadora de Idade",
+                objetivo: "Criar um único script PHP que contenha um formulário e o código para processar os dados, calculando a idade aproximada do usuário.",
+                enunciado: [
+                    "Crie um único arquivo PHP chamado <code>idade.php</code>. Este arquivo deve exibir um formulário que peça o ano de nascimento do usuário. Quando o formulário for enviado, a mesma página deve receber o dado, calcular a idade aproximada (Ano Atual - Ano de Nascimento) e exibir uma mensagem como 'Quem nasceu em [ano] tem/terá aproximadamente [idade] anos.'."
+                ],
+                saidaEsperada: `(Tela inicial)
+Qual seu ano de nascimento? [ campo para digitar ] [Enviar]
+
+(Após enviar o valor 2007)
+Quem nasceu em 2007 tem/terá aproximadamente 18 anos.`
+            }
+        };
+
+        // Lógica para renderizar o conteúdo dinamicamente
+        const navContainer = document.getElementById('section-nav');
+        const contentArea = document.getElementById('section-content-area');
+        const placeholder = document.getElementById('section-placeholder');
+        let currentActiveButton = null;
+
+        function displaySection(sectionId) {
+            let sectionData;
+            
+            const navMap = {
+                "texto-didatico": { data: conteudoPHP.textoDidatico, type: 'textoDidatico' },
+                "atividade-guiada": { data: conteudoPHP.atividadeGuiada, type: 'atividade' },
+                "entrega": { data: conteudoPHP.entrega, type: 'entrega' },
+                "desafio": { data: conteudoPHP.desafio, type: 'atividade' }
+            };
+
+            const selected = navMap[sectionId];
+            if (!selected) {
+                contentArea.innerHTML = '<p class="text-red-500">Conteúdo não encontrado.</p>';
+                return;
+            }
+            sectionData = selected.data;
+
+            if(placeholder) placeholder.style.display = 'none';
+            contentArea.innerHTML = ''; 
+
+            const article = document.createElement('article');
+            article.id = `section-${sectionData.id}`;
+            
+            const titleText = sectionData.subtitle ? `${sectionData.title}: ${sectionData.subtitle}` : sectionData.title;
+            const titleH2 = document.createElement('h2');
+            titleH2.className = "text-3xl font-bold text-gray-800 mb-6 pb-3 border-b border-gray-200";
+            titleH2.textContent = titleText;
+            article.appendChild(titleH2);
+            
+            if (selected.type === 'textoDidatico') {
+                const divContent = document.createElement('div');
+                divContent.innerHTML = sectionData.content;
+                article.appendChild(divContent);
+            } else {
+                 if (sectionData.objetivo) {
+                    const objP = document.createElement('p');
+                    objP.className = "text-gray-500 italic mb-6 text-base";
+                    objP.innerHTML = `<strong>Objetivo:</strong> ${sectionData.objetivo}`;
+                    article.appendChild(objP);
+                }
+
+                if(sectionData.enunciado){
+                    const enunciadoDiv = document.createElement('div');
+                    enunciadoDiv.className = "enunciado-block";
+                    const enunciadoTitle = document.createElement('h3');
+                    enunciadoTitle.className = "text-xl font-semibold text-gray-800 mb-3";
+                    enunciadoTitle.textContent = "Enunciado";
+                    enunciadoDiv.appendChild(enunciadoTitle);
+                    sectionData.enunciado.forEach(line => {
+                        const p = document.createElement('p');
+                        p.className = "text-gray-700 mb-2";
+                        p.innerHTML = line.replace(/`([^`]+)`/g, '<code class="bg-gray-200 text-sm text-pink-600 px-1 rounded">$1</code>');
+                        enunciadoDiv.appendChild(p);
+                    });
+                    article.appendChild(enunciadoDiv);
+                }
+                
+                if (sectionData.saidaEsperada) {
+                    const saidaTitle = document.createElement('h3');
+                    saidaTitle.className = "text-xl font-semibold text-gray-800 mb-2 mt-6";
+                    saidaTitle.textContent = selected.type === 'entrega' ? "Exemplo de Resposta:" : "Saída Esperada (Exemplo):";
+                    article.appendChild(saidaTitle);
+                    const outputBlockDiv = document.createElement('div');
+                    outputBlockDiv.className = selected.type === 'entrega' ? "gabarito-answers-block" : "output-block";
+                    outputBlockDiv.innerHTML = `<pre class="whitespace-pre-wrap"><code>${sectionData.saidaEsperada.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`;
+                    article.appendChild(outputBlockDiv);
+                }
+
+                if (sectionData.gabarito) {
+                    const gabaritoContainer = document.createElement('div');
+                    gabaritoContainer.className = "mt-8";
+                    const toggleButton = document.createElement('button');
+                    toggleButton.className = "bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-150 ease-in-out mb-2 shadow";
+                    toggleButton.textContent = "Mostrar Gabarito do Código";
+                    const gabaritoContent = document.createElement('div');
+                    gabaritoContent.id = `gabarito-content-${sectionData.id}`;
+                    gabaritoContent.classList.add('hidden', 'code-block');
+                    gabaritoContent.innerHTML = `<pre><code>${sectionData.gabarito.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`;
+                    
+                    gabaritoContainer.appendChild(toggleButton);
+                    gabaritoContainer.appendChild(gabaritoContent);
+                    article.appendChild(gabaritoContainer);
+
+                    toggleButton.addEventListener('click', () => {
+                        const isHidden = gabaritoContent.classList.toggle('hidden');
+                        toggleButton.textContent = isHidden ? "Mostrar Gabarito do Código" : "Esconder Gabarito";
+                    });
+                }
+            }
+            contentArea.appendChild(article);
+        }
+
+        function setActiveButton(button) {
+            if (currentActiveButton) {
+                currentActiveButton.classList.remove('nav-item-active');
+            }
+            button.classList.add('nav-item-active');
+            currentActiveButton = button;
+        }
+        
+        const navSections = [
+            conteudoPHP.textoDidatico,
+            conteudoPHP.atividadeGuiada,
+            conteudoPHP.entrega,
+            conteudoPHP.desafio
+        ];
+
+        navSections.forEach((section) => {
+            const button = document.createElement('button');
+            button.textContent = section.title;
+            button.classList.add(
+                'w-full', 'text-left', 'px-4', 'py-3', 'rounded-lg', 
+                'transition-all', 'duration-200', 'ease-in-out', 
+                'font-medium', 'text-gray-600', 'hover:bg-blue-100', 'hover:text-blue-600'
+            );
+            button.addEventListener('click', () => {
+                displaySection(section.id);
+                setActiveButton(button);
+            });
+            navContainer.appendChild(button);
+        });
+        
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
