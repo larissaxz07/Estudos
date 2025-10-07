@@ -39,6 +39,19 @@
         // Total com frete
         $totalComFrete = $total + $frete;
 
+        // ---- NOVA PARTE: Cotação do Dólar ----
+        $início = date("d-m-Y" , strtotime("-7 days"));
+        $fim = date("d-m-Y");
+        $url = 'https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@dataInicial=\''. $início.'\'&@dataFinalCotacao=\''.$fim.'\'&$top=1&$orderby=dataHoraCotacao%20desc&$format=json&$select=cotacaoCompra,dataHoraCotacao';
+
+        $dados = json_decode(file_get_contents($url), true);
+
+        $cotaçao = $dados["value"][0]["cotacaoCompra"];
+
+
+        // Converte para dólares
+        $totalDolar = $totalComFrete / $cotacao;
+
          // Exibe resultados
         echo "<p>Produto: R$ " . number_format($preco, 2, ",", ".") . " ($quantidade)</p>";
         echo "<p>Subtotal: R$ " . number_format($subtotal, 2, ",", ".") . "</p>";
@@ -46,6 +59,9 @@
         echo "<p><strong>Total Final: R$ " . number_format($total, 2, ",", ".") . "</strong></p>";
         echo "<p>Frete: R$ " . number_format($frete, 2, ",", ".") . "</p>";
         echo "<p>Valor Total com Frete: R$ " . number_format($totalComFrete, 2, ",", ".") . "</p>";
+         echo "<hr>";
+        echo "<p>Cotação do Dólar Hoje: R$ " . number_format($cotacao, 2, ",", ".") . "</p>";
+        echo "<p><strong>Total em Dólares: US$ " . number_format($totalDolar, 2, ".", ",") . "</strong></p>";
     }
     ?>  
 
