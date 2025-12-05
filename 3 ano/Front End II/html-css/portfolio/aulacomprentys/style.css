@@ -1,0 +1,49 @@
+body{
+
+    background-color: rgb(235, 120, 200);
+}
+
+header{
+
+    background-color: rgb(190, 13, 206);
+    color: white;
+}
+
+main{
+
+    background-color: rgb(221, 38, 191);
+    color: white;
+}
+
+
+
+
+footer{
+
+    background-color: black;
+    color: white;
+}
+
+section.agrupamento{
+
+    background-color: rgb(138, 6, 120);
+}
+
+article.atexto{
+
+    background-color: rgb(16, 117, 206);
+}
+
+.pfoto{
+
+    display: inline;
+}
+
+
+article div{
+
+    display: inline;
+    padding: 20px;
+    float: right;
+
+}
